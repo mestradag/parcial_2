@@ -1,6 +1,5 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { PropuestaService } from './propuesta.service';
-import { PropuestaEntity } from './propuesta.entity';
 
 @Controller('propuesta')
 export class PropuestaController {
@@ -12,7 +11,7 @@ export class PropuestaController {
     }
 
    @Get(':id')
-    async findAllPropuestasById(@Param('id') id: number) {
+    async findPropuestasById(@Param('id') id: number) {
          return await this.propuestaService.findPropuestaById(id);
     }
 
@@ -20,7 +19,7 @@ export class PropuestaController {
     async findAllPropuestas() {
         return await this.propuestaService.findAllPropuestas();
     }
-    
+
     @Post('delete/:id') 
     async deletePropuesta(@Param('id') id: number) {
         return await this.propuestaService.deletePropuesta(id);

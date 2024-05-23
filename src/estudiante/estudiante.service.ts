@@ -21,7 +21,7 @@ export class EstudianteService {
         return this.estudianteRepository.save(libreria);
     }
 
-    findEstudianteById(id: number): Promise<EstudianteEntity> {
+    async findEstudianteById(id: number): Promise<EstudianteEntity> {
         return this.estudianteRepository.findOne({where: {id}});
     }
 }

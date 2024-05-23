@@ -22,11 +22,11 @@ export class PropuestaService {
         return this.propuestaRepository.save(album);
     }
 
-    findPropuestaById(id: number): Promise<PropuestaEntity> {
+    async findPropuestaById(id: number): Promise<PropuestaEntity> {
         return this.propuestaRepository.findOne({where: {id}});
     }
 
-    findAllPropuestas(): Promise<PropuestaEntity[]> {
+    async findAllPropuestas(): Promise<PropuestaEntity[]> {
         return this.propuestaRepository.find();
     }
 

@@ -10,9 +10,17 @@ import { PropuestaEntity } from './propuesta/propuesta.entity';
 import { ProyectoEntity } from './proyecto/proyecto.entity';
 import { EstudianteEntity } from './estudiante/estudiante.entity';
 import { ProfesorEntity } from './profesor/profesor.entity';
+import { ProyectoController } from './proyecto/proyecto.controller';
+import { EstudianteController } from './estudiante/estudiante.controller';
+import { ProfesorController } from './profesor/profesor.controller';
+import { PropuestaController } from './propuesta/propuesta.controller';
+import { ProyectoService } from './proyecto/proyecto.service';
+import { EstudianteService } from './estudiante/estudiante.service';
+import { ProfesorService } from './profesor/profesor.service';
+import { PropuestaService } from './propuesta/propuesta.service';
 
 @Module({
-  imports: [ ProfesorModule, EstudianteModule, ProyectoModule, ProfesorModule,                  //Aqui se pone el resto de los modulos
+  imports: [ ProfesorModule, EstudianteModule, ProyectoModule, ProfesorModule,                  
     TypeOrmModule.forRoot({
     type: 'postgres',
     host: 'localhost',
@@ -20,12 +28,12 @@ import { ProfesorEntity } from './profesor/profesor.entity';
     username: 'postgres',
     password: 'postgres',
     database: 'parcial_2',
-    entities: [ ProfesorEntity, EstudianteEntity, ProyectoEntity, PropuestaEntity], //Aqui se ponen las entities
+    entities: [ ProfesorEntity, EstudianteEntity, ProyectoEntity, PropuestaEntity], 
     dropSchema: true,
     synchronize: true,
     keepConnectionAlive: true
   }),],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, ProyectoController, EstudianteController, ProfesorController, PropuestaController],
+  providers: [AppService, ProyectoService, EstudianteService, ProfesorService, PropuestaService],
 })
 export class AppModule {}
