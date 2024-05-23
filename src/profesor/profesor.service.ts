@@ -11,12 +11,13 @@ export class ProfesorService {
         
     ){}
 
-    async createProfesor(grupoInvestigacion: string): Promise<ProfesorEntity> {
-        if (!grupoInvestigacion || (!(grupoInvestigacion in ['TICSW', 'IMAGINE', 'COMIT']))) {
-            throw new BadRequestException('El grupo de investigacion debe de estar en  TICSW, IMAGINE, COMIT');
+    async crearProfesor(grupoInvestigacion: string): Promise<ProfesorEntity> {
+
+        if (grupoInvestigacion != 'TICSW' && grupoInvestigacion != 'IMAGINE' && grupoInvestigacion != 'COMIT') {
+            throw new BadRequestException('El grupo de investigacion debe ser TICSW, IMAGINE o COMIT');
         }
 
-        const profesor = this.profesorRepository.create({ grupoInvestigacion});
+        const profesor = this.profesorRepository.create({ grupoInvestigacion });
         return this.profesorRepository.save(profesor);
     }
 
@@ -31,7 +32,7 @@ export class ProfesorService {
         }
         await this.profesorRepository.delete(id);
     }
-    
+
     async eliminarProfesor(cedula: number): Promise<void> {
         const profesor = await this.profesorRepository.findOne({ where: { cedula } });
         if (profesor.propuesta) {
