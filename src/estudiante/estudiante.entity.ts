@@ -11,7 +11,7 @@ export class EstudianteEntity {
     nombre:string;
 
     @Column()
-    codigo: number;
+    codigo: string;
 
     @Column()
     numCreditosA: number;
