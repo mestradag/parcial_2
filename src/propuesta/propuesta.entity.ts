@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { ProfesorEntity } from 'src/profesor/profesor.entity';
 import { ProyectoEntity } from 'src/proyecto/proyecto.entity';
 import { Column, Entity, ManyToOne, OneToOne, PrimaryGeneratedColumn } from 'typeorm';

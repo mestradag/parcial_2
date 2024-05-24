@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Controller, Post, Get, Param, Body, HttpException, HttpStatus } from '@nestjs/common';
 import { EstudianteService } from './estudiante.service';
 import { EstudianteEntity } from './estudiante.entity';
