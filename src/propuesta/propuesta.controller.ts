@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { PropuestaService } from './propuesta.service';
 
-@Controller('propuesta')
+@Controller('propuestas')
 export class PropuestaController {
     constructor(private readonly propuestaService: PropuestaService) {}
 
@@ -20,7 +20,7 @@ export class PropuestaController {
         return await this.propuestaService.findAllPropuestas();
     }
 
-    @Post('delete/:id') 
+    @Post(':id') 
     async deletePropuesta(@Param('id') id: number) {
         return await this.propuestaService.deletePropuesta(id);
     }

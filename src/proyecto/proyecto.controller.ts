@@ -2,7 +2,7 @@ import { Controller, Post, Body, HttpException, HttpStatus } from '@nestjs/commo
 import { ProyectoService } from './proyecto.service';
 import { ProyectoEntity } from './proyecto.entity';
 
-@Controller('proyecto')
+@Controller('proyectos')
 export class ProyectoController {
     constructor(private readonly proyectoService: ProyectoService) {}
 

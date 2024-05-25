@@ -21,11 +21,12 @@ export class EstudianteDTO {
     @IsNotEmpty()
     proyecto: ProyectoEntity;
 
+    /*
     constructor(data: EstudianteDTO) {
         this.id = data.id;
         this.nombre = data.nombre;
         this.codigo = data.codigo;
         this.numCreditosA = data.numCreditosA;
         this.proyecto = data.proyecto;
-    }
+    }*/
 }

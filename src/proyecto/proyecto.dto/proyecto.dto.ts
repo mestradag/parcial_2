@@ -25,6 +25,7 @@ export class ProyectoDTO {
     @IsNotEmpty()
     propuesta: PropuestaEntity;
 
+    /*
     constructor(data: ProyectoDTO) {
         this.id = data.id;
         this.fechaInicio = data.fechaInicio;
@@ -32,5 +33,5 @@ export class ProyectoDTO {
         this.url = data.url;
         this.estudiante = data.estudiante;
         this.propuesta = data.propuesta;
-    }
+    }*/
 }

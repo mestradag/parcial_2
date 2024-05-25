@@ -3,7 +3,7 @@ import { Controller, Post, Get, Param, Body, HttpException, HttpStatus } from '@
 import { EstudianteService } from './estudiante.service';
 import { EstudianteEntity } from './estudiante.entity';
 
-@Controller('estudiante')
+@Controller('estudiantes')
 export class EstudianteController {
     constructor(private readonly estudianteService: EstudianteService) {}
 

@@ -18,11 +18,9 @@ import { ProyectoService } from './proyecto/proyecto.service';
 import { EstudianteService } from './estudiante/estudiante.service';
 import { ProfesorService } from './profesor/profesor.service';
 import { PropuestaService } from './propuesta/propuesta.service';
-import { PrfesorPropuestaModule } from './prfesor-propuesta/prfesor-propuesta.module';
-import { ProfesorPropuestaModule } from './profesor-propuesta/profesor-propuesta.module';
 
 @Module({
-  imports: [ ProfesorModule, EstudianteModule, ProyectoModule, ProfesorModule, PropuestaModule,                  
+  imports: [                   
     TypeOrmModule.forRoot({
     type: 'postgres',
     host: 'localhost',
@@ -34,7 +32,7 @@ import { ProfesorPropuestaModule } from './profesor-propuesta/profesor-propuesta
     dropSchema: true,
     synchronize: true,
     keepConnectionAlive: true
-  }), PrfesorPropuestaModule, ProfesorPropuestaModule,],
+  }), ProfesorModule, EstudianteModule, ProyectoModule, ProfesorModule, PropuestaModule],
   controllers: [AppController, ProyectoController, EstudianteController, ProfesorController, PropuestaController],
   providers: [AppService, ProyectoService, EstudianteService, ProfesorService, PropuestaService],
 })

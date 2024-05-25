@@ -25,6 +25,7 @@ export class ProfesorDTO {
     @IsNotEmpty()
     propuesta: PropuestaEntity[];
 
+    /*
     constructor(data: ProfesorDTO) {
         this.id = data.id;
         this.cedula = data.cedula;
@@ -32,5 +33,5 @@ export class ProfesorDTO {
         this.grupoInvestigacion = data.grupoInvestigacion;
         this.numeroExtension = data.numeroExtension;
         this.propuesta = data.propuesta;
-    }
+    }*/
 }

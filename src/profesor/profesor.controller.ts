@@ -37,7 +37,7 @@ export class ProfesorController {
         }
     }
 
-    @Delete('cedula/:cedula')
+    @Delete(':cedula')
     async eliminarProfesor(@Param('cedula') cedula: number): Promise<void> {
         try {
             await this.profesorService.eliminarProfesor(cedula);
