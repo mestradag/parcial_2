@@ -20,7 +20,7 @@ import { ProfesorService } from './profesor/profesor.service';
 import { PropuestaService } from './propuesta/propuesta.service';
 
 @Module({
-  imports: [ ProfesorModule, EstudianteModule, ProyectoModule, ProfesorModule,                  
+  imports: [ ProfesorModule, EstudianteModule, ProyectoModule, ProfesorModule, PropuestaModule,                  
     TypeOrmModule.forRoot({
     type: 'postgres',
     host: 'localhost',
