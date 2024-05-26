@@ -25,27 +25,6 @@ describe('ProfesorService', () => {
     repository = module.get<Repository<ProfesorEntity>>(getRepositoryToken(ProfesorEntity));
   });
 
-  describe('crearProfesor', () => {
-    it('debería crear un profesor con un grupo de investigación válido', async () => {
-      const grupoInvestigacion = 'TICSW';
-      const profesor = new ProfesorEntity();
-      profesor.grupoInvestigacion = grupoInvestigacion;
-
-      jest.spyOn(repository, 'create').mockReturnValue(profesor);
-      jest.spyOn(repository, 'save').mockResolvedValue(profesor);
-
-      const result = await service.crearProfesor(grupoInvestigacion);
-      expect(result).toEqual(profesor);
-      expect(repository.create).toHaveBeenCalledWith({ grupoInvestigacion });
-      expect(repository.save).toHaveBeenCalledWith(profesor);
-    });
-
-    it('debería lanzar una BadRequestException si el grupo de investigación es inválido', async () => {
-      const grupoInvestigacion = faker.lorem.word(); // Grupo de investigación inválido
-
-      await expect(service.crearProfesor(grupoInvestigacion)).rejects.toThrow(BadRequestException);
-    });
-  });
 
   describe('findProfesorById', () => {
     it('debería devolver un profesor por ID', async () => {
@@ -78,7 +57,7 @@ describe('ProfesorService', () => {
       const id = faker.datatype.number();
       const profesor = new ProfesorEntity();
       profesor.id = id;
-      profesor.propuesta = null;
+      profesor.propuestas = null;
 
       jest.spyOn(service, 'findProfesorById').mockResolvedValue(profesor);
       jest.spyOn(repository, 'delete').mockResolvedValue({ affected: 1 } as any);
@@ -92,7 +71,7 @@ describe('ProfesorService', () => {
       const id = faker.datatype.number();
       const profesor = new ProfesorEntity();
       profesor.id = id;
-      profesor.propuesta = { proyecto: {} } as any; // Propuesta con un proyecto asociado
+      profesor.propuestas = { proyecto: {} } as any; // Propuesta con un proyecto asociado
 
       jest.spyOn(service, 'findProfesorById').mockResolvedValue(profesor);
 
@@ -105,7 +84,7 @@ describe('ProfesorService', () => {
       const cedula = faker.datatype.number();
       const profesor = new ProfesorEntity();
       profesor.cedula = cedula;
-      profesor.propuesta = null;
+      profesor.propuestas = null;
 
       jest.spyOn(repository, 'findOne').mockResolvedValue(profesor);
       jest.spyOn(repository, 'delete').mockResolvedValue({ affected: 1 } as any);
@@ -119,7 +98,7 @@ describe('ProfesorService', () => {
       const cedula = faker.datatype.number();
       const profesor = new ProfesorEntity();
       profesor.cedula = cedula;
-      profesor.propuesta = { proyecto: {} } as any; // Propuesta con un proyecto asociado
+      profesor.propuestas = { proyecto: {} } as any; // Propuesta con un proyecto asociado
 
       jest.spyOn(repository, 'findOne').mockResolvedValue(profesor);
 

@@ -21,7 +21,7 @@ export class PropuestaEntity {
     @OneToOne(type => ProyectoEntity, proyecto => proyecto.propuesta)
     proyecto: ProyectoEntity;
 
-    @ManyToOne(type => ProfesorEntity, profesor => profesor.propuesta)
+    @ManyToOne(type => ProfesorEntity, profesor => profesor.propuestas)
     profesor: ProfesorEntity;
 
 }

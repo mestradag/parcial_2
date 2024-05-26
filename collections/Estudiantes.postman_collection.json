@@ -1,0 +1,386 @@
+{
+	"info": {
+		"_postman_id": "d6a230e5-b666-4aaa-ada2-d8e17e1c75de",
+		"name": "Estudiantes",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23137168"
+	},
+	"item": [
+		{
+			"name": "Crear Estudiante Valido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains id\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property('id');\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"Juan Perez\",\r\n    \"codigo\": \"1234567890\",\r\n    \"numCreditosA\": 50\r\n}\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/estudiantes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"estudiantes"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Crear Estudiante valido",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Juan Perez\",\r\n    \"codigo\": \"1234567890\",\r\n    \"numCreditosA\": 50,\r\n    \"proyecto\": {\r\n        \"fechaInicio\": \"2023-01-01\",\r\n        \"fechaFin\": \"2023-12-31\",\r\n        \"url\": \"http://example.com/proyecto\"\r\n    }\r\n}\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/estudiantes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"estudiantes"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "177"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"b1-ngIWhpbgyykIr94TX7pdimhkoUc\""
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 25 May 2024 19:26:07 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"nombre\": \"Juan Perez\",\n    \"codigo\": \"1234567890\",\n    \"numCreditosA\": 50,\n    \"proyecto\": {\n        \"id\": 1,\n        \"fechaInicio\": \"2023-01-01\",\n        \"fechaFin\": \"2023-12-31\",\n        \"url\": \"http://example.com/proyecto\"\n    },\n    \"id\": 1\n}"
+				}
+			]
+		},
+		{
+			"name": "Crear Estudiante Invalido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains id\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property('id');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Nombre is Juan Perez\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.nombre).to.eql(\"Juan Perez\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"Juan Perez\",\r\n    \"codigo\": \"12345678\",\r\n    \"numCreditosA\": 50,\r\n    \"proyecto\": {\r\n        \"fechaInicio\": \"2023-01-01\",\r\n        \"fechaFin\": \"2023-12-31\",\r\n        \"url\": \"http://example.com/proyecto\"\r\n    }\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/estudiantes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"estudiantes"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Crear Estudiante Invalido",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Juan Perez\",\r\n    \"codigo\": \"12345678\",\r\n    \"numCreditosA\": 50,\r\n    \"proyecto\": {\r\n        \"fechaInicio\": \"2023-01-01\",\r\n        \"fechaFin\": \"2023-12-31\",\r\n        \"url\": \"http://example.com/proyecto\"\r\n    }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/estudiantes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"estudiantes"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "78"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"4e-FEkt2DNp2qr9czLP8Nj6GuLGazM\""
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 25 May 2024 19:27:19 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"statusCode\": 400,\n    \"message\": \"El código debe tener exactamente 10 caracteres\"\n}"
+				}
+			]
+		},
+		{
+			"name": "GetEstudianteById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/estudiantes/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"estudiantes",
+						"1"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "GetEstudianteById",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/estudiantes/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"estudiantes",
+								"1"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "205"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"cd-wcE2sxkI3VlivaSGcQVbDGY5F1w\""
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 25 May 2024 19:27:41 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 1,\n    \"nombre\": \"Juan Perez\",\n    \"codigo\": \"1234567890\",\n    \"numCreditosA\": 50,\n    \"proyecto\": {\n        \"id\": 1,\n        \"fechaInicio\": \"2023-01-01T05:00:00.000Z\",\n        \"fechaFin\": \"2023-12-31T05:00:00.000Z\",\n        \"url\": \"http://example.com/proyecto\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "GetEstudianteById Invalido",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/estudiantes/8",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"estudiantes",
+						"8"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "GetEstudianteById Invalido",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/estudiantes/8",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"estudiantes",
+								"8"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "55"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"37-BFlIF+WRzi4j+utrNDrlpU6sjQQ\""
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 25 May 2024 19:28:38 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"statusCode\": 404,\n    \"message\": \"Estudiante no encontrado\"\n}"
+				}
+			]
+		}
+	]
+}

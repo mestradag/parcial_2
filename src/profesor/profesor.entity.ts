@@ -20,6 +20,6 @@ export class ProfesorEntity {
     numeroExtension: number;
 
     @OneToMany(type => PropuestaEntity, propuesta => propuesta.profesor)
-    propuesta: PropuestaEntity[];
+    propuestas: PropuestaEntity[];
 
 }

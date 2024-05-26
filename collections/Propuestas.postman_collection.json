@@ -1,0 +1,565 @@
+{
+	"info": {
+		"_postman_id": "3ce827e4-6dab-49ac-b1f1-d468b3ded2cc",
+		"name": "Propuestas",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23137168"
+	},
+	"item": [
+		{
+			"name": "CreatePropuesta",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"titulo\": \"Propuesta de investigación\",\r\n    \"descripcion\": \"Una descripción detallada de la propuesta...\",\r\n    \"palabraClave\": \"Investigación, Tema, Propuesta\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/propuestas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"propuestas"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "CreatePropuesta",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"titulo\": \"Propuesta de investigación\",\r\n    \"descripcion\": \"Una descripción detallada de la propuesta...\",\r\n    \"palabraClave\": \"Investigación, Tema, Propuesta\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/propuestas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"propuestas"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "158"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"9e-yRhToaYbz1QxX9wicKHAngkThi0\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 26 May 2024 04:26:43 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"titulo\": \"Propuesta de investigación\",\n    \"descripcion\": \"Una descripción detallada de la propuesta...\",\n    \"palabraClave\": \"Investigación, Tema, Propuesta\",\n    \"id\": 6\n}"
+				}
+			]
+		},
+		{
+			"name": "CreatePropuesta Segunda",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"titulo\": \"Propuesta de investigación 2\",\r\n    \"descripcion\": \"Una descripción detallada de la propuesta 2...\",\r\n    \"palabraClave\": \"AI\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/propuestas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"propuestas"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "CreatePropuesta Segunda",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"titulo\": \"Propuesta de investigación 2\",\r\n    \"descripcion\": \"Una descripción detallada de la propuesta 2...\",\r\n    \"palabraClave\": \"AI\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/propuestas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"propuestas"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "133"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"85-kIoSFTPdaDedlZw9tATTxHZG1N0\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 26 May 2024 04:26:38 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"titulo\": \"Propuesta de investigación 2\",\n    \"descripcion\": \"Una descripción detallada de la propuesta 2...\",\n    \"palabraClave\": \"AI\",\n    \"id\": 5\n}"
+				}
+			]
+		},
+		{
+			"name": "GetPropuestaById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/propuestas/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"propuestas",
+						"2"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "GetPropuestaById",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/propuestas/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"propuestas",
+								"2"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "158"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"9e-CQfUs41h5xdXQfED+BTUUeEl6AE\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 26 May 2024 04:23:38 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 2,\n    \"titulo\": \"Propuesta de investigación\",\n    \"descripcion\": \"Una descripción detallada de la propuesta...\",\n    \"palabraClave\": \"Investigación, Tema, Propuesta\"\n}"
+				}
+			]
+		},
+		{
+			"name": "GetPropuestaById Invalido",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/propuestas/999",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"propuestas",
+						"999"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "GetPropuestaById Copy",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/propuestas/999",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"propuestas",
+								"999"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "54"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"36-02cY8tyIruEpXiD4qvygFj1CQIk\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 26 May 2024 04:24:06 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"statusCode\": 404,\n    \"message\": \"Propuesta no encontrada\"\n}"
+				}
+			]
+		},
+		{
+			"name": "GetAllPropuestas",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/propuestas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"propuestas"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "GetAllPropuestas",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/propuestas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"propuestas"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "453"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"1c5-z2pyh5BPfH5nNGKjVKYpYz+Elvc\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 26 May 2024 04:25:07 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": 2,\n        \"titulo\": \"Propuesta de investigación\",\n        \"descripcion\": \"Una descripción detallada de la propuesta...\",\n        \"palabraClave\": \"Investigación, Tema, Propuesta\"\n    },\n    {\n        \"id\": 3,\n        \"titulo\": \"Propuesta de investigación 2\",\n        \"descripcion\": \"Una descripción detallada de la propuesta 2...\",\n        \"palabraClave\": \"AI\"\n    },\n    {\n        \"id\": 4,\n        \"titulo\": \"Propuesta de investigación\",\n        \"descripcion\": \"Una descripción detallada de la propuesta...\",\n        \"palabraClave\": \"Investigación, Tema, Propuesta\"\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "DeletePropuestaById",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/propuestas/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"propuestas",
+						"4"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "DeletePropuestaById",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/propuestas/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"propuestas",
+								"4"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "47"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"2f-j74Frlgmc1+oH6KOb0TyolX88Ew\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 26 May 2024 04:25:20 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Propuesta eliminada correctamente\"\n}"
+				}
+			]
+		},
+		{
+			"name": "DeletePropuestaById Invalido",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/profesores/999",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"profesores",
+						"999"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/profesores/999",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"profesores",
+								"999"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "84"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"54-WV/Y8La/cihVfEgMZ+fJji3hpWw\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 26 May 2024 04:25:58 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"statusCode\": 400,\n    \"message\": \"Cannot read properties of null (reading 'propuestas')\"\n}"
+				}
+			]
+		}
+	]
+}

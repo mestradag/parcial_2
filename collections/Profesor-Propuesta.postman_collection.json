@@ -1,0 +1,630 @@
+{
+	"info": {
+		"_postman_id": "8ea3854b-b3e5-402a-9659-208472c3b42d",
+		"name": "Profesor-Propuesta",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23137168"
+	},
+	"item": [
+		{
+			"name": "AddPropuestaToProfesorId",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"pm.test(\"Response has the correct structure\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property('titulo');\r",
+							"    pm.expect(jsonData).to.have.property('descripcion');\r",
+							"    pm.expect(jsonData).to.have.property('palabraClave');\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"titulo\": \"Nueva Propuesta\",\r\n  \"descripcion\": \"Descripción de la propuesta\",\r\n  \"palabraClave\": \"Investigación\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/profesor/1/propuesta",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"profesor",
+						"1",
+						"propuesta"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "AddPropuestaToProfesorID",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"titulo\": \"Nueva Propuesta\",\r\n  \"descripcion\": \"Descripción de la propuesta\",\r\n  \"palabraClave\": \"Investigación\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/profesor/1/propuesta",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"profesor",
+								"1",
+								"propuesta"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "242"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"f2-zdttATJAVDmfKVKn2jepyfk+0/0\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 26 May 2024 04:32:39 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"titulo\": \"Nueva Propuesta\",\n    \"descripcion\": \"Descripción de la propuesta\",\n    \"palabraClave\": \"Investigación\",\n    \"profesor\": {\n        \"id\": 1,\n        \"cedula\": 1234567890,\n        \"nombre\": \"Juan Perez\",\n        \"grupoInvestigacion\": \"TICSW\",\n        \"numeroExtension\": 1234,\n        \"propuestas\": []\n    },\n    \"id\": 1\n}"
+				}
+			]
+		},
+		{
+			"name": "AddPropuestaToProfesorId Invalido",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"titulo\": \"Nueva Propuesta\",\r\n  \"descripcion\": \"Descripción de la propuesta\",\r\n  \"palabraClave\": \"Investigación\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/profesor/999/propuesta",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"profesor",
+						"999",
+						"propuesta"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "AddPropuestaToProfesorId Invalido",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"titulo\": \"Nueva Propuesta\",\r\n  \"descripcion\": \"Descripción de la propuesta\",\r\n  \"palabraClave\": \"Investigación\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/profesor/999/propuesta",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"profesor",
+								"999",
+								"propuesta"
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "52"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"34-rlKccw1E+/fV8niQk4oFitDfPro\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 26 May 2024 04:51:57 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"statusCode\": 500,\n    \"message\": \"Internal server error\"\n}"
+				}
+			]
+		},
+		{
+			"name": "AssociateProfesorPropuesta",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Profesor has the propuesta associated\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.propuestas).to.include(pm.request.url.variables.get('propuestaId'));\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/profesor/1/propuesta/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"profesor",
+						"1",
+						"propuesta",
+						"1"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "AssociateProfesorPropuesta",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/profesor/1/propuesta/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"profesor",
+								"1",
+								"propuesta",
+								"1"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "456"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"1c8-QCdelvDF7H6/J/y7BxT09CMvJtg\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 26 May 2024 04:36:56 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 1,\n    \"cedula\": 1234567890,\n    \"nombre\": \"Juan Perez\",\n    \"grupoInvestigacion\": \"TICSW\",\n    \"numeroExtension\": 1234,\n    \"propuestas\": [\n        {\n            \"id\": 1,\n            \"titulo\": \"Nueva Propuesta\",\n            \"descripcion\": \"Descripción de la propuesta\",\n            \"palabraClave\": \"Investigación\"\n        },\n        {\n            \"id\": 2,\n            \"titulo\": \"Nueva Propuesta\",\n            \"descripcion\": \"Descripción de la propuesta\",\n            \"palabraClave\": \"Investigación\"\n        },\n        {\n            \"id\": 1,\n            \"titulo\": \"Nueva Propuesta\",\n            \"descripcion\": \"Descripción de la propuesta\",\n            \"palabraClave\": \"Investigación\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "AssociateProfesorPropuesta Invalid",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/profesor/1/propuesta/999",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"profesor",
+						"1",
+						"propuesta",
+						"999"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "AssociateProfesorPropuesta Invalid Profesor",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/profesor/1/propuesta/999",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"profesor",
+								"1",
+								"propuesta",
+								"999"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "60"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"3c-07ckLk7rqBXrTc0lBP3sk5oohDo\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 26 May 2024 04:43:21 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"statusCode\": 404,\n    \"message\": \"Profesor with ID 1 not found.\"\n}"
+				},
+				{
+					"name": "AssociateProfesorPropuesta Invalid Propuesta",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/profesor/1/propuesta/999",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"profesor",
+								"1",
+								"propuesta",
+								"999"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "63"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"3f-lIKH3H7WaxevK8gb8BtqjGVsg1Y\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 26 May 2024 04:45:57 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"statusCode\": 404,\n    \"message\": \"Propuesta with ID 999 not found.\"\n}"
+				}
+			]
+		},
+		{
+			"name": "GetPropuestaByProfesorId",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/profesor/1/propuestas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"profesor",
+						"1",
+						"propuestas"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "GetPropuestasByProfesorId",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/profesor/1/propuestas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"profesor",
+								"1",
+								"propuestas"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "273"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"111-kgAUMe1x2Jd0uBAFKbFr5MILhzU\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 26 May 2024 04:56:21 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": 2,\n        \"titulo\": \"Nueva Propuesta\",\n        \"descripcion\": \"Descripción de la propuesta\",\n        \"palabraClave\": \"Investigación\"\n    },\n    {\n        \"id\": 1,\n        \"titulo\": \"Propuesta de investigación\",\n        \"descripcion\": \"Una descripción detallada de la propuesta...\",\n        \"palabraClave\": \"Investigación, Tema, Propuesta\"\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "GetPropuestaByProfesorId Invalid",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/profesor/999/propuestas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"profesor",
+						"999",
+						"propuestas"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "GetPropuestaByProfesorId Copy",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/profesor/999/propuestas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"profesor",
+								"999",
+								"propuestas"
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "52"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"34-rlKccw1E+/fV8niQk4oFitDfPro\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 26 May 2024 04:57:04 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"statusCode\": 500,\n    \"message\": \"Internal server error\"\n}"
+				}
+			]
+		},
+		{
+			"name": "DeletePropuestaProfesor",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/profesor/1/propuesta/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"profesor",
+						"1",
+						"propuesta",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

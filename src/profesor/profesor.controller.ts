@@ -7,9 +7,10 @@ export class ProfesorController {
     constructor(private readonly profesorService: ProfesorService) {}
 
     @Post()
-    async crearProfesor(@Body('grupoInvestigacion') grupoInvestigacion: string): Promise<ProfesorEntity> {
+    async crearProfesor(@Body() profesorData: ProfesorEntity): Promise<ProfesorEntity> {
         try {
-            return await this.profesorService.crearProfesor(grupoInvestigacion);
+            const { grupoInvestigacion, numeroExtension, cedula, nombre} = profesorData;
+            return await this.profesorService.crearProfesor(cedula, nombre, grupoInvestigacion, numeroExtension);
         } catch (error) {
             throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
         }
@@ -29,18 +30,20 @@ export class ProfesorController {
     }
 
     @Delete(':id')
-    async deleteProfesor(@Param('id') id: number): Promise<void> {
+    async deleteProfesor(@Param('id') id: number): Promise<{ message: string }> {
         try {
             await this.profesorService.deleteProfesor(id);
+            return { message: 'Profesor eliminado corrrectamente' };
         } catch (error) {
             throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
         }
     }
 
-    @Delete(':cedula')
-    async eliminarProfesor(@Param('cedula') cedula: number): Promise<void> {
+    @Delete('delete/:cedula')
+    async eliminarProfesor(@Param('cedula') cedula: number): Promise<{ message: string }> {
         try {
             await this.profesorService.eliminarProfesor(cedula);
+            return { message: 'Profesor eliminado correctamente' };
         } catch (error) {
             throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
         }

@@ -1,7 +1,8 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { RegExpOrString, Repository } from 'typeorm'; 
+import { Repository } from 'typeorm'; 
 import { EstudianteEntity } from './estudiante.entity';
+import { ProyectoEntity } from '../proyecto/proyecto.entity';
 
 @Injectable()
 export class EstudianteService {
@@ -9,19 +10,27 @@ export class EstudianteService {
     constructor(
         @InjectRepository(EstudianteEntity)
         private readonly estudianteRepository: Repository<EstudianteEntity>,
-        
+        @InjectRepository(ProyectoEntity)
+        private readonly proyectoRepository: Repository<ProyectoEntity>,
     ){}
 
-    async createEstudiante(codigo:string): Promise<EstudianteEntity> {
-        if (!codigo || codigo.length == 10) {
-            throw new BadRequestException('El codigo debe tener 10 caracteres');
+    async createEstudiante(
+        nombre: string,
+        codigo: string,
+        numCreditosA: number
+    ): Promise<EstudianteEntity> {
+        if (!codigo || codigo.length !== 10) {
+            throw new BadRequestException('El código debe tener exactamente 10 caracteres');
         }
-
-        const libreria = this.estudianteRepository.create({ codigo });
-        return this.estudianteRepository.save(libreria);
+        const nuevoEstudiante = this.estudianteRepository.create({ nombre, codigo, numCreditosA});
+        return this.estudianteRepository.save(nuevoEstudiante);
     }
 
     async findEstudianteById(id: number): Promise<EstudianteEntity> {
-        return this.estudianteRepository.findOne({where: {id}});
+        const estudiante = await this.estudianteRepository.findOne({ where: { id }, relations: ['proyecto'] });
+        if (!estudiante) {
+            throw new NotFoundException('Estudiante no encontrado');
+        }
+        return estudiante;
     }
 }

@@ -13,28 +13,37 @@ export class PropuestaService {
         
     ){}
 
-    async createPropuesta(titulo: string): Promise<PropuestaEntity> {
-        if (!titulo) {
-            throw new BadRequestException('Title cannot be empty');
+    async createPropuesta(titulo: string, descripcion:string, palabraClave:string): Promise<PropuestaEntity> {
+        if (!titulo || !descripcion) {
+            throw new BadRequestException('Title and description cannot be empty');
         }
 
-        const album = this.propuestaRepository.create({ titulo });
+        const album = this.propuestaRepository.create({ titulo, descripcion, palabraClave});
         return this.propuestaRepository.save(album);
     }
 
     async findPropuestaById(id: number): Promise<PropuestaEntity> {
-        return this.propuestaRepository.findOne({where: {id}});
+        const propuesta = await this.propuestaRepository.findOne({ where: { id } });
+        if (!propuesta) {
+            throw new NotFoundException('Propuesta no encontrada');
+        }
+        return propuesta;
     }
 
     async findAllPropuestas(): Promise<PropuestaEntity[]> {
-        return this.propuestaRepository.find();
+        const propuestas = await this.propuestaRepository.find();
+        if (propuestas.length === 0) {
+            throw new NotFoundException('No se encontraron propuestas');
+        }
+        return propuestas;
     }
 
-    async deletePropuesta(id: number): Promise<void> {
+    async deletePropuesta(id: number): Promise<{ message: string }> {
         const propuesta = await this.findPropuestaById(id);
         if (propuesta.proyecto) {
             throw new BadRequestException('Cannot delete a proposal with a project');
         }
         await this.propuestaRepository.delete(id);
+        return { message: 'Propuesta eliminada exitosamente' };
     }
 }

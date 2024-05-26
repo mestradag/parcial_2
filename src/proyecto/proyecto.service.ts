@@ -12,12 +12,12 @@ export class ProyectoService {
         
     ){}
 
-    async createProyecto(fechaInicio: Date, fechaFin: Date): Promise<ProyectoEntity> {
+    async createProyecto(fechaInicio: Date, fechaFin: Date, url:string): Promise<ProyectoEntity> {
         if (!fechaInicio || !fechaFin || fechaInicio > fechaFin) {
             throw new BadRequestException('La fecha de inicio debe ser anterior a la fecha de fin');
         }
 
-        const proyecto = this.proyectoRepository.create({ fechaInicio, fechaFin });
+        const proyecto = this.proyectoRepository.create({ fechaInicio, fechaFin, url });
         return this.proyectoRepository.save(proyecto);
     }
 

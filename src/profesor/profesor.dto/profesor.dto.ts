@@ -22,9 +22,6 @@ export class ProfesorDTO {
     @IsNumber()
     numeroExtension: number;
 
-    @IsNotEmpty()
-    propuesta: PropuestaEntity[];
-
     /*
     constructor(data: ProfesorDTO) {
         this.id = data.id;

@@ -18,6 +18,9 @@ import { ProyectoService } from './proyecto/proyecto.service';
 import { EstudianteService } from './estudiante/estudiante.service';
 import { ProfesorService } from './profesor/profesor.service';
 import { PropuestaService } from './propuesta/propuesta.service';
+import { ProfesorPropuestaModule } from './profesor-propuesta/profesor-propuesta.module';
+import { ProyectoPropuestaModule } from './proyecto-propuesta/proyecto-propuesta.module';
+import { ProyectoEstudianteModule } from './proyecto-estudiante/proyecto-estudiante.module';
 
 @Module({
   imports: [                   
@@ -32,8 +35,8 @@ import { PropuestaService } from './propuesta/propuesta.service';
     dropSchema: true,
     synchronize: true,
     keepConnectionAlive: true
-  }), ProfesorModule, EstudianteModule, ProyectoModule, ProfesorModule, PropuestaModule],
-  controllers: [AppController, ProyectoController, EstudianteController, ProfesorController, PropuestaController],
-  providers: [AppService, ProyectoService, EstudianteService, ProfesorService, PropuestaService],
+  }), ProfesorModule, EstudianteModule, ProyectoModule, ProfesorModule, PropuestaModule, ProfesorPropuestaModule, ProyectoPropuestaModule, ProyectoEstudianteModule],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}
