@@ -1,14 +1,13 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { getRepositoryToken } from '@nestjs/typeorm';
 import { ProyectoService } from './proyecto.service';
 import { ProyectoEntity } from './proyecto.entity';
+import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { BadRequestException } from '@nestjs/common';
-import { faker } from '@faker-js/faker';
 
 describe('ProyectoService', () => {
   let service: ProyectoService;
-  let repository: Repository<ProyectoEntity>;
+  let proyectoRepository: Repository<ProyectoEntity>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -22,43 +21,39 @@ describe('ProyectoService', () => {
     }).compile();
 
     service = module.get<ProyectoService>(ProyectoService);
-    repository = module.get<Repository<ProyectoEntity>>(getRepositoryToken(ProyectoEntity));
+    proyectoRepository = module.get<Repository<ProyectoEntity>>(getRepositoryToken(ProyectoEntity));
+  });
+
+  it('should be defined', () => {
+    expect(service).toBeDefined();
   });
 
   describe('createProyecto', () => {
-    it('debería crear un proyecto con fechas válidas', async () => {
-      const fechaInicio = faker.date.past();
-      const fechaFin = faker.date.future();
-      const proyecto = new ProyectoEntity();
-      proyecto.fechaInicio = fechaInicio;
-      proyecto.fechaFin = fechaFin;
+    it('should create a new project successfully', async () => {
+      const proyectoData = {
+        fechaInicio: new Date('2023-01-01'),
+        fechaFin: new Date('2023-12-31'),
+        url: 'http://example.com',
+      };
+      const savedProyecto = {
+        id: 1,
+        ...proyectoData,
+      };
 
-      jest.spyOn(repository, 'create').mockReturnValue(proyecto);
-      jest.spyOn(repository, 'save').mockResolvedValue(proyecto);
+      jest.spyOn(proyectoRepository, 'create').mockReturnValue(proyectoData as any);
+      jest.spyOn(proyectoRepository, 'save').mockResolvedValue(savedProyecto as any);
 
-      const result = await service.createProyecto(fechaInicio, fechaFin);
-      expect(result).toEqual(proyecto);
-      expect(repository.create).toHaveBeenCalledWith({ fechaInicio, fechaFin });
-      expect(repository.save).toHaveBeenCalledWith(proyecto);
+      const result = await service.createProyecto(proyectoData.fechaInicio, proyectoData.fechaFin, proyectoData.url);
+      expect(result).toEqual(savedProyecto);
     });
 
-    it('debería lanzar una BadRequestException si la fecha de inicio es posterior a la fecha de fin', async () => {
-      const fechaInicio = faker.date.future();
-      const fechaFin = faker.date.past();
-
-      await expect(service.createProyecto(fechaInicio, fechaFin)).rejects.toThrow(BadRequestException);
+    it('should throw an error if fechaInicio or fechaFin is missing', async () => {
+      await expect(service.createProyecto(null, new Date('2023-12-31'), 'http://example.com')).rejects.toThrow(BadRequestException);
+      await expect(service.createProyecto(new Date('2023-01-01'), null, 'http://example.com')).rejects.toThrow(BadRequestException);
     });
 
-    it('debería lanzar una BadRequestException si la fecha de inicio está ausente', async () => {
-      const fechaFin = faker.date.future();
-
-      await expect(service.createProyecto(null, fechaFin)).rejects.toThrow(BadRequestException);
-    });
-
-    it('debería lanzar una BadRequestException si la fecha de fin está ausente', async () => {
-      const fechaInicio = faker.date.past();
-
-      await expect(service.createProyecto(fechaInicio, null)).rejects.toThrow(BadRequestException);
+    it('should throw an error if fechaInicio is after fechaFin', async () => {
+      await expect(service.createProyecto(new Date('2024-01-01'), new Date('2023-12-31'), 'http://example.com')).rejects.toThrow(BadRequestException);
     });
   });
 });

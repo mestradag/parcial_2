@@ -26,11 +26,4 @@ export class ProyectoEstudianteController {
     return this.proyectoEstudianteService.findProyectoByEstudianteId(estudianteId);
   }
 
-  @Delete(':proyectoId/estudiante/:estudianteId')
-  async deleteProyectoIdEstudianteId(
-    @Param('proyectoId') proyectoId: number,
-    @Param('estudianteId') estudianteId: number,
-  ): Promise<string> {
-    return this.proyectoEstudianteService.deleteProyectoIdEstudianteId(proyectoId, estudianteId);
-  }
 }

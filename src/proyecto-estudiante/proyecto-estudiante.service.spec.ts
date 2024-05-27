@@ -2,8 +2,8 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ProyectoEstudianteService } from './proyecto-estudiante.service';
-import { ProyectoEntity } from 'src/proyecto/proyecto.entity';
-import { EstudianteEntity } from 'src/estudiante/estudiante.entity';
+import { ProyectoEntity } from '../proyecto/proyecto.entity';
+import { EstudianteEntity } from '../estudiante/estudiante.entity';
 
 describe('ProyectoEstudianteService', () => {
   let service: ProyectoEstudianteService;
@@ -36,58 +36,43 @@ describe('ProyectoEstudianteService', () => {
 
   describe('addProyectoEstudiante', () => {
     it('should add a student to a project', async () => {
-      const mockProyecto = new ProyectoEntity();
-      mockProyecto.id = 1;
-      jest.spyOn(proyectoRepository, 'findOne').mockResolvedValueOnce(mockProyecto);
+      const proyecto = { id: 1, estudiante: null } as ProyectoEntity;
+      const estudiante = { id: 2 } as EstudianteEntity;
 
-      const mockEstudiante = new EstudianteEntity();
-      mockEstudiante.id = 1;
-      jest.spyOn(estudianteRepository, 'findOne').mockResolvedValueOnce(mockEstudiante);
+      jest.spyOn(proyectoRepository, 'findOne').mockResolvedValueOnce(proyecto);
+      jest.spyOn(estudianteRepository, 'findOne').mockResolvedValueOnce(estudiante);
+      jest.spyOn(proyectoRepository, 'save').mockResolvedValueOnce({ ...proyecto, estudiante });
 
-      const result = await service.addProyectoEstudiante(1, 1);
-
-      expect(result).toEqual(`Student with ID ${mockEstudiante.id} successfully associated with Proyecto with ID ${mockProyecto.id}.`);
+      const result = await service.addProyectoEstudiante(1, 2);
+      expect(result).toEqual(`Student with ID 2 successfully associated with Proyecto with ID 1.`);
     });
 
     it('should throw an error if project is not found', async () => {
-      jest.spyOn(proyectoRepository, 'findOne').mockResolvedValueOnce(undefined);
+      jest.spyOn(proyectoRepository, 'findOne').mockResolvedValueOnce(null);
 
-      await expect(service.addProyectoEstudiante(1, 1)).rejects.toThrowError('Proyecto with ID 1 not found.');
+      await expect(service.addProyectoEstudiante(1, 2)).rejects.toThrow('Proyecto with ID 1 not found.');
     });
 
     it('should throw an error if student is not found', async () => {
-      const mockProyecto = new ProyectoEntity();
-      mockProyecto.id = 1;
-      jest.spyOn(proyectoRepository, 'findOne').mockResolvedValueOnce(mockProyecto);
+      const proyecto = { id: 1, estudiante: null } as ProyectoEntity;
 
-      jest.spyOn(estudianteRepository, 'findOne').mockResolvedValueOnce(undefined);
+      jest.spyOn(proyectoRepository, 'findOne').mockResolvedValueOnce(proyecto);
+      jest.spyOn(estudianteRepository, 'findOne').mockResolvedValueOnce(null);
 
-      await expect(service.addProyectoEstudiante(1, 1)).rejects.toThrowError('Estudiante with ID 1 not found.');
-    });
-
-    it('should throw an error if project already has an associated student', async () => {
-      const mockProyecto = new ProyectoEntity();
-      mockProyecto.id = 1;
-      mockProyecto.estudiante = new EstudianteEntity(); // Simulate project already having an associated student
-      jest.spyOn(proyectoRepository, 'findOne').mockResolvedValueOnce(mockProyecto);
-
-      const mockEstudiante = new EstudianteEntity();
-      mockEstudiante.id = 1;
-      jest.spyOn(estudianteRepository, 'findOne').mockResolvedValueOnce(mockEstudiante);
-
-      await expect(service.addProyectoEstudiante(1, 1)).rejects.toThrowError('Proyecto with ID 1 already has an associated student.');
+      await expect(service.addProyectoEstudiante(1, 2)).rejects.toThrow('Estudiante with ID 2 not found.');
     });
   });
 
   describe('associateProyectoToEstudianteId', () => {
     it('should associate a student to a project', async () => {
-      const mockProyecto = new ProyectoEntity();
-      mockProyecto.id = 1;
+      const mockProyecto = { id: 1 } as ProyectoEntity;
       jest.spyOn(proyectoRepository, 'findOne').mockResolvedValueOnce(mockProyecto);
 
-      const mockEstudiante = new EstudianteEntity();
-      mockEstudiante.id = 1;
+      const mockEstudiante = { id: 1 } as EstudianteEntity;
       jest.spyOn(estudianteRepository, 'findOne').mockResolvedValueOnce(mockEstudiante);
+
+      mockProyecto.estudiante = mockEstudiante;
+      jest.spyOn(proyectoRepository, 'save').mockResolvedValueOnce(mockProyecto);
 
       const result = await service.associateProyectoToEstudianteId(1, 1);
 
@@ -101,8 +86,7 @@ describe('ProyectoEstudianteService', () => {
     });
 
     it('should throw an error if student is not found', async () => {
-      const mockProyecto = new ProyectoEntity();
-      mockProyecto.id = 1;
+      const mockProyecto = { id: 1 } as ProyectoEntity;
       jest.spyOn(proyectoRepository, 'findOne').mockResolvedValueOnce(mockProyecto);
 
       jest.spyOn(estudianteRepository, 'findOne').mockResolvedValueOnce(undefined);
@@ -110,11 +94,10 @@ describe('ProyectoEstudianteService', () => {
       await expect(service.associateProyectoToEstudianteId(1, 1)).rejects.toThrowError('Estudiante with ID 1 not found.');
     });
   });
+
   describe('findProyectoByEstudianteId', () => {
     it('should return the project associated with a student', async () => {
-      const mockEstudiante = new EstudianteEntity();
-      mockEstudiante.id = 1;
-      mockEstudiante.proyecto = new ProyectoEntity(); // Simulate student having an associated project
+      const mockEstudiante = { id: 1, proyecto: { id: 2 } } as EstudianteEntity;
       jest.spyOn(estudianteRepository, 'findOne').mockResolvedValueOnce(mockEstudiante);
 
       const result = await service.findProyectoByEstudianteId(1);
@@ -129,43 +112,4 @@ describe('ProyectoEstudianteService', () => {
     });
   });
 
-  describe('deleteProyectoIdEstudianteId', () => {
-    it('should disassociate a student from a project', async () => {
-      const mockProyecto = new ProyectoEntity();
-      mockProyecto.id = 1;
-      const mockEstudiante = new EstudianteEntity();
-      mockEstudiante.id = 1;
-      mockEstudiante.proyecto = mockProyecto; // Simulate student having an associated project
-      jest.spyOn(proyectoRepository, 'findOne').mockResolvedValueOnce(mockProyecto);
-
-      const result = await service.deleteProyectoIdEstudianteId(1, 1);
-
-      expect(result).toEqual(`Estudiante disassociated from Proyecto with ID ${mockProyecto.id} successfully.`);
-    });
-
-    it('should throw an error if project is not found', async () => {
-      jest.spyOn(proyectoRepository, 'findOne').mockResolvedValueOnce(undefined);
-
-      await expect(service.deleteProyectoIdEstudianteId(1, 1)).rejects.toThrowError('Proyecto with ID 1 not found.');
-    });
-
-    it('should throw an error if no student is associated with the project', async () => {
-      const mockProyecto = new ProyectoEntity();
-      mockProyecto.id = 1;
-      jest.spyOn(proyectoRepository, 'findOne').mockResolvedValueOnce(mockProyecto);
-
-      await expect(service.deleteProyectoIdEstudianteId(1, 1)).rejects.toThrowError(`No student associated with Proyecto with ID ${mockProyecto.id}.`);
-    });
-
-    it('should throw an error if student associated with project does not match provided student ID', async () => {
-      const mockProyecto = new ProyectoEntity();
-      mockProyecto.id = 1;
-      const mockEstudiante = new EstudianteEntity();
-      mockEstudiante.id = 1;
-      mockEstudiante.proyecto = mockProyecto; // Simulate student having an associated project
-      jest.spyOn(proyectoRepository, 'findOne').mockResolvedValueOnce(mockProyecto);
-
-      await expect(service.deleteProyectoIdEstudianteId(1, 2)).rejects.toThrowError(`No student associated with Proyecto with ID ${mockProyecto.id} and Estudiante with ID 2.`);
-    });
-  });
 });

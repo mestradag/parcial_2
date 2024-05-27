@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { ProfesorPropuestaService } from './profesor-propuesta.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ProfesorEntity } from 'src/profesor/profesor.entity';
-import { PropuestaEntity } from 'src/propuesta/propuesta.entity';
+import { ProfesorEntity } from '../profesor/profesor.entity';
+import { PropuestaEntity } from '../propuesta/propuesta.entity';
 import { ProfesorPropuestaController } from './profesor-propuesta.controller';
 
 @Module({

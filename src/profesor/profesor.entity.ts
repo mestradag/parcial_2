@@ -1,4 +1,4 @@
-import { PropuestaEntity } from "src/propuesta/propuesta.entity";
+import { PropuestaEntity } from "../propuesta/propuesta.entity";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()

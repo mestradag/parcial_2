@@ -1,7 +1,7 @@
 import { Controller, Post, Get, Param, Delete, Body, Put, HttpException, HttpStatus } from '@nestjs/common';
 import { ProfesorPropuestaService } from './profesor-propuesta.service';
-import { ProfesorEntity } from 'src/profesor/profesor.entity';
-import { PropuestaEntity } from 'src/propuesta/propuesta.entity';
+import { ProfesorEntity } from '../profesor/profesor.entity';
+import { PropuestaEntity } from '../propuesta/propuesta.entity';
 
 @Controller('profesor')
 export class ProfesorPropuestaController {
@@ -30,14 +30,5 @@ export class ProfesorPropuestaController {
   @Get(':profesorId/propuestas')
   async findPropuestasByProfesorId(@Param('profesorId') profesorId: number, @Param('propuestaId') propuestaId: number): Promise<PropuestaEntity[]> {
     return this.profesorPropuestaService.findPropuestasByProfesorId(profesorId);
-  }
-
-
-  @Delete(':profesorId/propuesta/:propuestaId')
-  async deletePropuestaProfesor(
-    @Param('profesorId') profesorId: number,
-    @Param('propuestaId') propuestaId: number,
-  ): Promise<void> {
-    return this.profesorPropuestaService.deletePropuestaProfesor(profesorId, propuestaId);
   }
 }

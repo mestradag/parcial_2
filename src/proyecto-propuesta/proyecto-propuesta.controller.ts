@@ -1,6 +1,6 @@
 import { Controller, Post, Body, Param, Get, Delete, NotFoundException, Put } from '@nestjs/common';
 import { ProyectoPropuestaService } from './proyecto-propuesta.service';
-import { ProyectoEntity } from 'src/proyecto/proyecto.entity';
+import { ProyectoEntity } from '../proyecto/proyecto.entity';
 
 @Controller('proyecto')
 export class ProyectoPropuestaController {
@@ -29,13 +29,5 @@ export class ProyectoPropuestaController {
       throw new NotFoundException(`Proyecto not found for Propuesta with ID ${propuestaId}`);
     }
     return proyecto;
-  }
-
-  @Delete(':proyectoId/propuesta/:propuestaId')
-  async deleteProyectoIdPropuestaId(
-    @Param('proyectoId') proyectoId: number,
-    @Param('propuestaId') propuestaId: number
-  ): Promise<string> {
-    return await this.proyectoPropuestaService.deleteProyectoIdPropuestaId(proyectoId, propuestaId);
   }
 }

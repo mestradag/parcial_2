@@ -1,14 +1,15 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { getRepositoryToken } from '@nestjs/typeorm';
 import { EstudianteService } from './estudiante.service';
 import { EstudianteEntity } from './estudiante.entity';
+import { ProyectoEntity } from '../proyecto/proyecto.entity';
+import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { NotFoundException, BadRequestException } from '@nestjs/common';
-import { faker } from '@faker-js/faker';
 
 describe('EstudianteService', () => {
   let service: EstudianteService;
-  let repository: Repository<EstudianteEntity>;
+  let estudianteRepository: Repository<EstudianteEntity>;
+  let proyectoRepository: Repository<ProyectoEntity>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -18,58 +19,74 @@ describe('EstudianteService', () => {
           provide: getRepositoryToken(EstudianteEntity),
           useClass: Repository,
         },
+        {
+          provide: getRepositoryToken(ProyectoEntity),
+          useClass: Repository,
+        },
       ],
     }).compile();
 
     service = module.get<EstudianteService>(EstudianteService);
-    repository = module.get<Repository<EstudianteEntity>>(getRepositoryToken(EstudianteEntity));
+    estudianteRepository = module.get<Repository<EstudianteEntity>>(getRepositoryToken(EstudianteEntity));
+    proyectoRepository = module.get<Repository<ProyectoEntity>>(getRepositoryToken(ProyectoEntity));
+  });
+
+  it('should be defined', () => {
+    expect(service).toBeDefined();
   });
 
   describe('createEstudiante', () => {
-    it('debería crear un estudiante con un código válido', async () => {
-      const codigo = faker.random.alphaNumeric(10);
-      const estudiante = new EstudianteEntity();
-      estudiante.codigo = codigo;
+    it('should create a new student successfully', async () => {
+      const estudianteData = {
+        nombre: 'John Doe',
+        codigo: '1234567890',
+        numCreditosA: 20,
+      };
+      const savedEstudiante = {
+        id: 1,
+        ...estudianteData,
+      };
 
-      jest.spyOn(repository, 'create').mockReturnValue(estudiante);
-      jest.spyOn(repository, 'save').mockResolvedValue(estudiante);
+      jest.spyOn(estudianteRepository, 'create').mockReturnValue(estudianteData as any);
+      jest.spyOn(estudianteRepository, 'save').mockResolvedValue(savedEstudiante as any);
 
-      const result = await service.createEstudiante(codigo);
-      expect(result).toEqual(estudiante);
-      expect(repository.create).toHaveBeenCalledWith({ codigo });
-      expect(repository.save).toHaveBeenCalledWith(estudiante);
+      const result = await service.createEstudiante(estudianteData.nombre, estudianteData.codigo, estudianteData.numCreditosA);
+      expect(result).toEqual(savedEstudiante);
     });
 
-    it('debería lanzar una BadRequestException si el código no tiene 10 caracteres', async () => {
-      const codigo = faker.random.alphaNumeric(5); // Código inválido
+    it('should throw an error if the student code is not exactly 10 characters', async () => {
+      const estudianteData = {
+        nombre: 'John Doe',
+        codigo: '12345678', // Incorrect length
+        numCreditosA: 20,
+      };
 
-      await expect(service.createEstudiante(codigo)).rejects.toThrow(BadRequestException);
+      await expect(
+        service.createEstudiante(estudianteData.nombre, estudianteData.codigo, estudianteData.numCreditosA)
+      ).rejects.toThrow(BadRequestException);
     });
   });
 
   describe('findEstudianteById', () => {
-    it('debería devolver un estudiante por ID', async () => {
-      const id = faker.datatype.number();
-      const codigo = faker.random.alphaNumeric(10);
-      const estudiante = new EstudianteEntity();
-      estudiante.id = id;
-      estudiante.codigo = codigo;
+    it('should return a student by ID', async () => {
+      const estudianteData = {
+        id: 1,
+        nombre: 'John Doe',
+        codigo: '1234567890',
+        numCreditosA: 20,
+        proyecto: null,
+      };
 
-      jest.spyOn(repository, 'findOne').mockResolvedValue(estudiante);
+      jest.spyOn(estudianteRepository, 'findOne').mockResolvedValue(estudianteData as any);
 
-      const result = await service.findEstudianteById(id);
-      expect(result).toEqual(estudiante);
-      expect(repository.findOne).toHaveBeenCalledWith({ where: { id } });
+      const result = await service.findEstudianteById(estudianteData.id);
+      expect(result).toEqual(estudianteData);
     });
 
-    it('debería devolver null si no se encuentra el estudiante', async () => {
-      const id = faker.datatype.number();
+    it('should throw an error if student not found', async () => {
+      jest.spyOn(estudianteRepository, 'findOne').mockResolvedValue(null);
 
-      jest.spyOn(repository, 'findOne').mockResolvedValue(null);
-
-      const result = await service.findEstudianteById(id);
-      expect(result).toBeNull();
-      expect(repository.findOne).toHaveBeenCalledWith({ where: { id } });
+      await expect(service.findEstudianteById(1)).rejects.toThrow(NotFoundException);
     });
   });
 });

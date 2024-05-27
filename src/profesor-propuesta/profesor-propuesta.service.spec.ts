@@ -2,8 +2,8 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { ProfesorPropuestaService } from './profesor-propuesta.service';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { ProfesorEntity } from 'src/profesor/profesor.entity';
-import { PropuestaEntity } from 'src/propuesta/propuesta.entity';
+import { ProfesorEntity } from '../profesor/profesor.entity';
+import { PropuestaEntity } from '../propuesta/propuesta.entity';
 
 describe('ProfesorPropuestaService', () => {
   let service: ProfesorPropuestaService;
@@ -40,6 +40,7 @@ describe('ProfesorPropuestaService', () => {
       const propuestaId = 1;
       const profesor = new ProfesorEntity();
       profesor.id = profesorId;
+      profesor.propuestas = [];
       const propuesta = new PropuestaEntity();
       propuesta.id = propuestaId;
 
@@ -68,6 +69,7 @@ describe('ProfesorPropuestaService', () => {
       const propuestaId = 1;
       const profesor = new ProfesorEntity();
       profesor.id = profesorId;
+      profesor.propuestas = [];
       const propuesta = new PropuestaEntity();
       propuesta.id = propuestaId;
 
@@ -77,7 +79,7 @@ describe('ProfesorPropuestaService', () => {
 
       const result = await service.associatePropuestaToProfesor(profesorId, propuestaId);
 
-      expect(result).toEqual(profesor);
+      expect(result).toEqual(`Propuesta with ID ${propuestaId} successfully associated with Profesor with ID ${profesorId}.`);
       expect(profesor.propuestas).toContain(propuesta);
     });
 
@@ -97,6 +99,7 @@ describe('ProfesorPropuestaService', () => {
       const propuestaId = 1;
       const profesor = new ProfesorEntity();
       profesor.id = profesorId;
+      profesor.propuestas = [];
 
       jest.spyOn(profesorRepository, 'findOne').mockResolvedValue(profesor);
       jest.spyOn(propuestaRepository, 'findOne').mockResolvedValue(undefined);
@@ -113,9 +116,9 @@ describe('ProfesorPropuestaService', () => {
       const profesor = new ProfesorEntity();
       profesor.id = profesorId;
       const propuestas = [new PropuestaEntity(), new PropuestaEntity()];
+      profesor.propuestas = propuestas;
 
       jest.spyOn(profesorRepository, 'findOne').mockResolvedValue(profesor);
-      jest.spyOn(propuestaRepository, 'find').mockResolvedValue(propuestas);
 
       const result = await service.findPropuestasByProfesorId(profesorId);
 
@@ -133,47 +136,4 @@ describe('ProfesorPropuestaService', () => {
     });
   });
 
-  describe('deletePropuestaProfesor', () => {
-    it('should delete propuesta from profesor', async () => {
-      const profesorId = 1;
-      const propuestaId = 1;
-      const profesor = new ProfesorEntity();
-      profesor.id = profesorId;
-      const propuesta = new PropuestaEntity();
-      propuesta.id = propuestaId;
-      profesor.propuestas = [propuesta];
-
-      jest.spyOn(profesorRepository, 'findOne').mockResolvedValue(profesor);
-      jest.spyOn(profesorRepository, 'save').mockResolvedValue(profesor);
-
-      await service.deletePropuestaProfesor(profesorId, propuestaId);
-
-      expect(profesor.propuestas).toHaveLength(0);
-    });
-
-    it('should throw error if profesor not found', async () => {
-      const profesorId = 1;
-      const propuestaId = 1;
-
-      jest.spyOn(profesorRepository, 'findOne').mockResolvedValue(undefined);
-
-      await expect(service.deletePropuestaProfesor(profesorId, propuestaId)).rejects.toThrowError(
-        `Profesor with ID ${profesorId} not found.`,
-      );
-    });
-
-    it('should throw error if propuesta not associated with profesor', async () => {
-      const profesorId = 1;
-      const propuestaId = 1;
-      const profesor = new ProfesorEntity();
-      profesor.id = profesorId;
-
-      jest.spyOn(profesorRepository, 'findOne').mockResolvedValue(profesor);
-
-      await expect(service.deletePropuestaProfesor(profesorId, propuestaId)).rejects.toThrowError(
-        `Propuesta with ID ${propuestaId} not associated with Profesor with ID ${profesorId}.`,
-      );
-    });
-  });
 });
-

@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { IsNotEmpty, IsString } from 'class-validator';
-import { ProfesorEntity } from 'src/profesor/profesor.entity';
-import { ProyectoEntity } from 'src/proyecto/proyecto.entity';
+import { ProfesorEntity } from '../../profesor/profesor.entity';
+import { ProyectoEntity } from '../../proyecto/proyecto.entity';
 
 export class PropuestaDTO {
     @IsNotEmpty()

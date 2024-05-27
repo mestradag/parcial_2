@@ -603,28 +603,6 @@
 					"body": "{\n    \"statusCode\": 500,\n    \"message\": \"Internal server error\"\n}"
 				}
 			]
-		},
-		{
-			"name": "DeletePropuestaProfesor",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:3000/profesor/1/propuesta/1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"profesor",
-						"1",
-						"propuesta",
-						"1"
-					]
-				}
-			},
-			"response": []
 		}
 	]
 }

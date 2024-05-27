@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { ProyectoEntity } from 'src/proyecto/proyecto.entity';
-import { EstudianteEntity } from 'src/estudiante/estudiante.entity';
+import { ProyectoEntity } from '../proyecto/proyecto.entity';
+import { EstudianteEntity } from '../estudiante/estudiante.entity';
 
 @Injectable()
 export class ProyectoEstudianteService {
@@ -56,17 +56,4 @@ export class ProyectoEstudianteService {
     return estudiante.proyecto;
   }
 
-  async deleteProyectoIdEstudianteId(proyectoId: number, estudianteId: number): Promise<string> {
-    const proyecto = await this.proyectoRepository.findOne({ where: { id: proyectoId }, relations: ['estudiante'] });
-    if (!proyecto) {
-      throw new Error(`Proyecto with ID ${proyectoId} not found.`);
-    }
-    if (proyecto.estudiante && proyecto.estudiante.id === estudianteId) {
-      proyecto.estudiante = null;
-      await this.proyectoRepository.save(proyecto);
-      return `Estudiante disassociated from Proyecto with ID ${proyectoId} successfully.`;
-    } else {
-      throw new Error(`No student associated with Proyecto with ID ${proyectoId} and Estudiante with ID ${estudianteId}.`);
-    }
-  }
 }

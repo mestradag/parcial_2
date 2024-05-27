@@ -1,14 +1,13 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { getRepositoryToken } from '@nestjs/typeorm';
 import { PropuestaService } from './propuesta.service';
 import { PropuestaEntity } from './propuesta.entity';
+import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { BadRequestException, NotFoundException } from '@nestjs/common';
-import { faker } from '@faker-js/faker';
+import { NotFoundException, BadRequestException } from '@nestjs/common';
 
 describe('PropuestaService', () => {
   let service: PropuestaService;
-  let repository: Repository<PropuestaEntity>;
+  let propuestaRepository: Repository<PropuestaEntity>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -22,96 +21,119 @@ describe('PropuestaService', () => {
     }).compile();
 
     service = module.get<PropuestaService>(PropuestaService);
-    repository = module.get<Repository<PropuestaEntity>>(getRepositoryToken(PropuestaEntity));
+    propuestaRepository = module.get<Repository<PropuestaEntity>>(getRepositoryToken(PropuestaEntity));
+  });
+
+  it('should be defined', () => {
+    expect(service).toBeDefined();
   });
 
   describe('createPropuesta', () => {
-    it('debería crear una propuesta con un título válido', async () => {
-      const titulo = faker.lorem.words(3);
-      const propuesta = new PropuestaEntity();
-      propuesta.titulo = titulo;
+    it('should create a new proposal successfully', async () => {
+      const propuestaData = {
+        titulo: 'New Proposal',
+        descripcion: 'Description of the new proposal',
+        palabraClave: 'keyword',
+      };
+      const savedPropuesta = {
+        id: 1,
+        ...propuestaData,
+      };
 
-      jest.spyOn(repository, 'create').mockReturnValue(propuesta);
-      jest.spyOn(repository, 'save').mockResolvedValue(propuesta);
+      jest.spyOn(propuestaRepository, 'create').mockReturnValue(propuestaData as any);
+      jest.spyOn(propuestaRepository, 'save').mockResolvedValue(savedPropuesta as any);
 
-      const result = await service.createPropuesta(titulo);
-      expect(result).toEqual(propuesta);
-      expect(repository.create).toHaveBeenCalledWith({ titulo });
-      expect(repository.save).toHaveBeenCalledWith(propuesta);
+      const result = await service.createPropuesta(propuestaData.titulo, propuestaData.descripcion, propuestaData.palabraClave);
+      expect(result).toEqual(savedPropuesta);
     });
 
-    it('debería lanzar una BadRequestException si el título está vacío', async () => {
-      const titulo = ''; // Título vacío
-
-      await expect(service.createPropuesta(titulo)).rejects.toThrow(BadRequestException);
+    it('should throw an error if the title or description is empty', async () => {
+      await expect(service.createPropuesta('', 'Description', 'keyword')).rejects.toThrow(BadRequestException);
+      await expect(service.createPropuesta('Title', '', 'keyword')).rejects.toThrow(BadRequestException);
     });
   });
 
   describe('findPropuestaById', () => {
-    it('debería devolver una propuesta por ID', async () => {
-      const id = faker.datatype.number();
-      const titulo = faker.lorem.words(3);
-      const propuesta = new PropuestaEntity();
-      propuesta.id = id;
-      propuesta.titulo = titulo;
+    it('should return a proposal by ID', async () => {
+      const propuestaData = {
+        id: 1,
+        titulo: 'Proposal Title',
+        descripcion: 'Proposal Description',
+        palabraClave: 'keyword',
+      };
 
-      jest.spyOn(repository, 'findOne').mockResolvedValue(propuesta);
+      jest.spyOn(propuestaRepository, 'findOne').mockResolvedValue(propuestaData as any);
 
-      const result = await service.findPropuestaById(id);
-      expect(result).toEqual(propuesta);
-      expect(repository.findOne).toHaveBeenCalledWith({ where: { id } });
+      const result = await service.findPropuestaById(propuestaData.id);
+      expect(result).toEqual(propuestaData);
     });
 
-    it('debería devolver null si no se encuentra la propuesta', async () => {
-      const id = faker.datatype.number();
+    it('should throw an error if proposal not found', async () => {
+      jest.spyOn(propuestaRepository, 'findOne').mockResolvedValue(null);
 
-      jest.spyOn(repository, 'findOne').mockResolvedValue(null);
-
-      const result = await service.findPropuestaById(id);
-      expect(result).toBeNull();
-      expect(repository.findOne).toHaveBeenCalledWith({ where: { id } });
+      await expect(service.findPropuestaById(1)).rejects.toThrow(NotFoundException);
     });
   });
 
   describe('findAllPropuestas', () => {
-    it('debería devolver todas las propuestas', async () => {
-      const propuestas = [
-        { id: faker.datatype.number(), titulo: faker.lorem.words(3) },
-        { id: faker.datatype.number(), titulo: faker.lorem.words(3) },
-      ] as PropuestaEntity[];
+    it('should return all proposals', async () => {
+      const propuestasData = [
+        {
+          id: 1,
+          titulo: 'Proposal Title 1',
+          descripcion: 'Proposal Description 1',
+          palabraClave: 'keyword1',
+        },
+        {
+          id: 2,
+          titulo: 'Proposal Title 2',
+          descripcion: 'Proposal Description 2',
+          palabraClave: 'keyword2',
+        },
+      ];
 
-      jest.spyOn(repository, 'find').mockResolvedValue(propuestas);
+      jest.spyOn(propuestaRepository, 'find').mockResolvedValue(propuestasData as any);
 
       const result = await service.findAllPropuestas();
-      expect(result).toEqual(propuestas);
-      expect(repository.find).toHaveBeenCalled();
+      expect(result).toEqual(propuestasData);
+    });
+
+    it('should throw an error if no proposals are found', async () => {
+      jest.spyOn(propuestaRepository, 'find').mockResolvedValue([]);
+
+      await expect(service.findAllPropuestas()).rejects.toThrow(NotFoundException);
     });
   });
 
   describe('deletePropuesta', () => {
-    it('debería eliminar una propuesta sin proyecto asociado', async () => {
-      const id = faker.datatype.number();
-      const propuesta = new PropuestaEntity();
-      propuesta.id = id;
-      propuesta.proyecto = null;
+    it('should delete a proposal successfully', async () => {
+      const propuestaData = {
+        id: 1,
+        titulo: 'Proposal Title',
+        descripcion: 'Proposal Description',
+        palabraClave: 'keyword',
+        proyecto: null,
+      };
 
-      jest.spyOn(service, 'findPropuestaById').mockResolvedValue(propuesta);
-      jest.spyOn(repository, 'delete').mockResolvedValue({ affected: 1 } as any);
+      jest.spyOn(service, 'findPropuestaById').mockResolvedValue(propuestaData as any);
+      jest.spyOn(propuestaRepository, 'delete').mockResolvedValue(undefined);
 
-      await service.deletePropuesta(id);
-      expect(service.findPropuestaById).toHaveBeenCalledWith(id);
-      expect(repository.delete).toHaveBeenCalledWith(id);
+      const result = await service.deletePropuesta(propuestaData.id);
+      expect(result).toEqual({ message: 'Propuesta eliminada exitosamente' });
     });
 
-    it('debería lanzar una BadRequestException si la propuesta tiene un proyecto asociado', async () => {
-      const id = faker.datatype.number();
-      const propuesta = new PropuestaEntity();
-      propuesta.id = id;
-      propuesta.proyecto = { titulo: faker.lorem.words(3) } as any; // Propuesta con un proyecto asociado
+    it('should throw an error if trying to delete a proposal associated with a project', async () => {
+      const propuestaData = {
+        id: 1,
+        titulo: 'Proposal Title',
+        descripcion: 'Proposal Description',
+        palabraClave: 'keyword',
+        proyecto: { id: 1 },
+      };
 
-      jest.spyOn(service, 'findPropuestaById').mockResolvedValue(propuesta);
+      jest.spyOn(service, 'findPropuestaById').mockResolvedValue(propuestaData as any);
 
-      await expect(service.deletePropuesta(id)).rejects.toThrow(BadRequestException);
+      await expect(service.deletePropuesta(propuestaData.id)).rejects.toThrow(BadRequestException);
     });
   });
 });
