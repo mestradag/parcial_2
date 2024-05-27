@@ -30,7 +30,8 @@
 					"path": [
 						"propuestas"
 					]
-				}
+				},
+				"description": "\n### Create New Proposal\n\nThis endpoint allows you to create a new proposal.\n\n#### Request Body\n- `titulo` (string, required): The title of the proposal.\n- `descripcion` (string, required): The description of the proposal.\n- `palabraClave` (string, required): The keyword associated with the proposal.\n\n#### Response\nThe response will be a JSON object with the following properties:\n- `titulo` (string): The title of the created proposal.\n- `descripcion` (string): The description of the created proposal.\n- `palabraClave` (string): The keyword associated with the created proposal.\n- `id` (number): The unique identifier of the created proposal.\n\n#### JSON Schema\n```json\n{\n    \"type\": \"object\",\n    \"properties\": {\n        \"titulo\": { \"type\": \"string\" },\n        \"descripcion\": { \"type\": \"string\" },\n        \"palabraClave\": { \"type\": \"string\" },\n        \"id\": { \"type\": \"number\" }\n    }\n}\n"
 			},
 			"response": [
 				{
@@ -121,7 +122,8 @@
 					"path": [
 						"propuestas"
 					]
-				}
+				},
+				"description": "\n# Create Proposal\nThis endpoint allows you to create a new proposal.\n\n## Request Body\n- `titulo` (string, required): The title of the proposal.\n- `descripcion` (string, required): The description of the proposal.\n- `palabraClave` (string, required): The keyword associated with the proposal.\n\n## Response\nUpon successful creation, the response will include the following fields:\n- `titulo` (string): The title of the created proposal.\n- `descripcion` (string): The description of the created proposal.\n- `palabraClave` (string): The keyword associated with the created proposal.\n- `id` (integer): The unique identifier of the created proposal.\n\nExample:\n```json\n{\n    \"titulo\": \"Sample Title\",\n    \"descripcion\": \"Sample Description\",\n    \"palabraClave\": \"Sample Keyword\",\n    \"id\": 123\n}\n```\n"
 			},
 			"response": [
 				{
@@ -204,7 +206,8 @@
 						"propuestas",
 						"2"
 					]
-				}
+				},
+				"description": "### Get Proposal Details\n\nThis endpoint retrieves the details of a specific proposal with the given ID.\n\n#### Request\n\n- Method: GET\n    \n- Endpoint: `http://localhost:3000/propuestas/2`\n    \n\n#### Response\n\nUpon a successful request, the server will respond with the details of the proposal in the following format:\n\n``` json\n{\n    \"id\": 0,\n    \"titulo\": \"\",\n    \"descripcion\": \"\",\n    \"palabraClave\": \"\"\n}\n\n ```\n\nThe response includes the unique identifier (`id`), title (`titulo`), description (`descripcion`), and keyword (`palabraClave`) of the proposal."
 			},
 			"response": [
 				{
@@ -279,7 +282,8 @@
 						"propuestas",
 						"999"
 					]
-				}
+				},
+				"description": "### Get Propuesta by ID\n\nThis endpoint retrieves a specific proposal by its ID.\n\n#### Response\n\nThe response for this request is a JSON object representing the proposal. Below is a JSON schema representing the structure of the response:\n\n``` json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"id\": {\n      \"type\": \"integer\"\n    },\n    \"title\": {\n      \"type\": \"string\"\n    },\n    \"description\": {\n      \"type\": \"string\"\n    },\n    \"created_at\": {\n      \"type\": \"string\",\n      \"format\": \"date-time\"\n    },\n    \"updated_at\": {\n      \"type\": \"string\",\n      \"format\": \"date-time\"\n    }\n  }\n}\n\n ```"
 			},
 			"response": [
 				{
@@ -353,7 +357,8 @@
 					"path": [
 						"propuestas"
 					]
-				}
+				},
+				"description": "The `GET` request to `/propuestas` endpoint retrieves a list of proposals. The response for this request is a JSON array containing objects with the following properties:\n\n- `id` (number): The unique identifier for the proposal.\n    \n- `titulo` (string): The title of the proposal.\n    \n- `descripcion` (string): The description of the proposal.\n    \n- `palabraClave` (string): The keyword associated with the proposal.\n    \n\nHere is an example response for this request:\n\n``` json\n[\n  {\n    \"id\": 0,\n    \"titulo\": \"\",\n    \"descripcion\": \"\",\n    \"palabraClave\": \"\"\n  }\n]\n\n ```"
 			},
 			"response": [
 				{
@@ -427,7 +432,8 @@
 						"propuestas",
 						"4"
 					]
-				}
+				},
+				"description": "This endpoint sends an HTTP DELETE request to remove the proposal with the ID of 4. Upon successful deletion, the response will be in the form of a JSON object with a \"message\" key indicating the status of the operation.\n\n``` json\n{\n    \"message\": \"\"\n}\n\n ```"
 			},
 			"response": [
 				{
@@ -502,7 +508,8 @@
 						"profesores",
 						"999"
 					]
-				}
+				},
+				"description": "### Delete Professor\n\nThis endpoint is used to delete a specific professor by their ID.\n\n#### Request\n\n- Method: DELETE\n    \n- URL: `http://localhost:3000/profesores/999`\n    \n\n#### Response\n\nThe response for this request is a JSON schema describing the structure of the response body."
 			},
 			"response": [
 				{

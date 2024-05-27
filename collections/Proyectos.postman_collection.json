@@ -30,7 +30,8 @@
 					"path": [
 						"proyectos"
 					]
-				}
+				},
+				"description": "### Create a New Project\n\nThis API endpoint allows you to create a new project.\n\n#### Request Body\n\n- `fechaInicio` (string, optional): The start date of the project.\n    \n- `fechaFin` (string, optional): The end date of the project.\n    \n- `url` (string, optional): The URL related to the project.\n    \n\n#### Response\n\nThe response will be a JSON object with the following properties:\n\n- `fechaInicio` (string): The start date of the project.\n    \n- `fechaFin` (string): The end date of the project.\n    \n- `url` (string): The URL related to the project.\n    \n- `id` (number): The unique identifier of the created project.\n    \n\n#### JSON Schema\n\n``` json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"fechaInicio\": { \"type\": \"string\" },\n    \"fechaFin\": { \"type\": \"string\" },\n    \"url\": { \"type\": \"string\" },\n    \"id\": { \"type\": \"number\" }\n  },\n  \"required\": [\"fechaInicio\", \"fechaFin\", \"url\", \"id\"]\n}\n\n ```"
 			},
 			"response": [
 				{
@@ -121,7 +122,8 @@
 					"path": [
 						"proyectos"
 					]
-				}
+				},
+				"description": "### POST /proyectos\n\nThis endpoint is used to create a new project.\n\n#### Request Body\n\n- `fechaInicio` (string, required): The start date of the project.\n    \n- `fechaFin` (string, required): The end date of the project.\n    \n- `url` (string, required): The URL of the project.\n    \n\n#### Response\n\nThe response of this request follows the JSON schema below:\n\n``` json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"id\": {\n      \"type\": \"string\"\n    },\n    \"fechaInicio\": {\n      \"type\": \"string\"\n    },\n    \"fechaFin\": {\n      \"type\": \"string\"\n    },\n    \"url\": {\n      \"type\": \"string\"\n    }\n  }\n}\n\n ```"
 			},
 			"response": [
 				{

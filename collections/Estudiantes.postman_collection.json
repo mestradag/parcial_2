@@ -49,7 +49,8 @@
 					"path": [
 						"estudiantes"
 					]
-				}
+				},
+				"description": "\nThe endpoint makes an HTTP POST request to create a new student at the specified URL. The request body should include the student's name, code, and the number of credits. \n\n### Response\nThe response will be in JSON format and will include the student's name, code, number of credits, and details about the project associated with the student, including project ID, start date, end date, and URL.\n\n```json\n{\n    \"type\": \"object\",\n    \"properties\": {\n        \"nombre\": { \"type\": \"string\" },\n        \"codigo\": { \"type\": \"string\" },\n        \"numCreditosA\": { \"type\": \"integer\" },\n        \"proyecto\": {\n            \"type\": \"object\",\n            \"properties\": {\n                \"id\": { \"type\": \"integer\" },\n                \"fechaInicio\": { \"type\": \"string\" },\n                \"fechaFin\": { \"type\": \"string\" },\n                \"url\": { \"type\": \"string\" }\n            }\n        },\n        \"id\": { \"type\": \"integer\" }\n    }\n}\n```\n"
 			},
 			"response": [
 				{
@@ -165,7 +166,8 @@
 					"path": [
 						"estudiantes"
 					]
-				}
+				},
+				"description": "The endpoint `POST /estudiantes` is used to create a new student.\n\n### Request Body\n\n- `nombre` (string, required): The name of the student.\n    \n- `codigo` (string, required): The unique code of the student.\n    \n- `numCreditosA` (number, required): The number of credits completed by the student.\n    \n- `proyecto` (object, required):\n    - `fechaInicio` (string, required): The start date of the student's project.\n        \n    - `fechaFin` (string, required): The end date of the student's project.\n        \n    - `url` (string, required): The URL of the student's project.\n        \n\n### Response (JSON Schema)\n\n``` json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"id\": {\n      \"type\": \"string\"\n    },\n    \"mensaje\": {\n      \"type\": \"string\"\n    }\n  }\n}\n\n ```"
 			},
 			"response": [
 				{
@@ -248,7 +250,8 @@
 						"estudiantes",
 						"1"
 					]
-				}
+				},
+				"description": "This endpoint makes an HTTP GET request to retrieve information about a student with the specified ID. The response will be in JSON format and will include the following fields:\n\n- id (number): The unique identifier of the student.\n    \n- nombre (string): The name of the student.\n    \n- codigo (string): The student's code.\n    \n- numCreditosA (number): The number of credits accumulated by the student.\n    \n- proyecto (object): An object containing information about the student's project, including the following sub-fields:\n    - id (number): The unique identifier of the project.\n        \n    - fechaInicio (string): The start date of the project.\n        \n    - fechaFin (string): The end date of the project.\n        \n    - url (string): The URL associated with the project.\n        \n\n``` json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"id\": {\n      \"type\": \"number\"\n    },\n    \"nombre\": {\n      \"type\": \"string\"\n    },\n    \"codigo\": {\n      \"type\": \"string\"\n    },\n    \"numCreditosA\": {\n      \"type\": \"number\"\n    },\n    \"proyecto\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"id\": {\n          \"type\": \"number\"\n        },\n        \"fechaInicio\": {\n          \"type\": \"string\"\n        },\n        \"fechaFin\": {\n          \"type\": \"string\"\n        },\n        \"url\": {\n          \"type\": \"string\"\n        }\n      }\n    }\n  }\n}\n\n ```"
 			},
 			"response": [
 				{
@@ -323,7 +326,8 @@
 						"estudiantes",
 						"8"
 					]
-				}
+				},
+				"description": "### Get Estudiante by ID\n\nThis endpoint retrieves the details of a specific student.\n\n#### Request\n\n- Method: GET\n    \n- URL: `http://localhost:3000/estudiantes/8`\n    \n\n#### Response\n\nThe response will be a JSON object with the following schema:\n\n``` json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"id\": {\n      \"type\": \"integer\"\n    },\n    \"name\": {\n      \"type\": \"string\"\n    },\n    \"age\": {\n      \"type\": \"integer\"\n    },\n    \"address\": {\n      \"type\": \"string\"\n    },\n    \"courses\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"string\"\n      }\n    }\n  }\n}\n\n ```"
 			},
 			"response": [
 				{

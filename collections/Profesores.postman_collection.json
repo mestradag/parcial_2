@@ -30,7 +30,8 @@
 					"path": [
 						"profesores"
 					]
-				}
+				},
+				"description": "The endpoint `POST /profesores` is used to create a new professor.\n\n### Request Body\n\n- cedula (number, required): The identification number of the professor.\n    \n- nombre (string, required): The name of the professor.\n    \n- grupoInvestigacion (string, required): The research group the professor is associated with.\n    \n- numeroExtension (number, required): The extension number of the professor.\n    \n\n### Response\n\nThe response for this request is a JSON object with the following properties:\n\n- cedula (number): The identification number of the professor.\n    \n- nombre (string): The name of the professor.\n    \n- grupoInvestigacion (string): The research group the professor is associated with.\n    \n- numeroExtension (number): The extension number of the professor.\n    \n- id (number): The unique identifier of the created professor.\n    \n\n#### JSON Schema\n\n``` json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"cedula\": { \"type\": \"number\" },\n    \"nombre\": { \"type\": \"string\" },\n    \"grupoInvestigacion\": { \"type\": \"string\" },\n    \"numeroExtension\": { \"type\": \"number\" },\n    \"id\": { \"type\": \"number\" }\n  }\n}\n\n ```"
 			},
 			"response": [
 				{
@@ -121,7 +122,8 @@
 					"path": [
 						"profesores"
 					]
-				}
+				},
+				"description": "\nThis endpoint allows you to create a new entry for professors. The request should be sent as an HTTP POST to http://localhost:3000/profesores with the required payload in the raw request body.\n\n### Request Body\n- cedula (number): The identification number of the professor.\n- nombre (string): The name of the professor.\n- grupoInvestigacion (string): The research group the professor is associated with.\n- numeroExtension (number): The extension number for contacting the professor.\n\n### Response\nThe response for this request will be in the form of a JSON schema, with the following properties:\n- cedula (number): The identification number of the professor.\n- nombre (string): The name of the professor.\n- grupoInvestigacion (string): The research group the professor is associated with.\n- numeroExtension (number): The extension number for contacting the professor.\n- id (number): The unique identifier for the professor entry.\n\nExample response:\n```json\n{\n  \"cedula\": 0,\n  \"nombre\": \"\",\n  \"grupoInvestigacion\": \"\",\n  \"numeroExtension\": 0,\n  \"id\": 0\n}\n```\n"
 			},
 			"response": [
 				{
@@ -204,7 +206,8 @@
 						"profesores",
 						"1"
 					]
-				}
+				},
+				"description": "The endpoint retrieves information about a specific professor identified by the ID in the URL. The response body contains the professor's ID, cedula, nombre, grupoInvestigacion, and numeroExtension. Below is the JSON schema for the response:\n\n``` json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"id\": {\n      \"type\": \"integer\"\n    },\n    \"cedula\": {\n      \"type\": \"integer\"\n    },\n    \"nombre\": {\n      \"type\": \"string\"\n    },\n    \"grupoInvestigacion\": {\n      \"type\": \"string\"\n    },\n    \"numeroExtension\": {\n      \"type\": \"integer\"\n    }\n  }\n}\n\n ```"
 			},
 			"response": [
 				{
@@ -279,7 +282,8 @@
 						"profesores",
 						"999"
 					]
-				}
+				},
+				"description": "This endpoint sends an HTTP GET request to retrieve information about a specific professor with the ID 999.\n\n### Response\n\nThe response of this request is a JSON schema representing the data of the professor. The JSON schema will outline the structure of the response data, including the type and format of each field."
 			},
 			"response": [
 				{
@@ -354,7 +358,8 @@
 						"profesores",
 						"2"
 					]
-				}
+				},
+				"description": "### Delete Profesor\n\nThis endpoint is used to delete a specific profesor.\n\n#### Request\n\n- Method: DELETE\n    \n- URL: `http://localhost:3000/profesores/2`\n    \n\n#### Response\n\nThe response for this request will be a JSON object with the following schema:\n\n``` json\n{\n  \"message\": \"string\"\n}\n\n ```\n\nThe `message` field contains a string indicating the result of the delete operation."
 			},
 			"response": [
 				{
@@ -421,7 +426,8 @@
 						"profesores",
 						"2"
 					]
-				}
+				},
+				"description": "This endpoint retrieves the details of a specific professor with the ID 2. The response of this request is documented below as a JSON schema.\n\n``` json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"id\": {\n      \"type\": \"integer\"\n    },\n    \"name\": {\n      \"type\": \"string\"\n    },\n    \"email\": {\n      \"type\": \"string\",\n      \"format\": \"email\"\n    },\n    \"department\": {\n      \"type\": \"string\"\n    },\n    \"courses\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"string\"\n      }\n    }\n  }\n}\n\n ```"
 			},
 			"response": [
 				{
@@ -506,7 +512,8 @@
 						"delete",
 						"1234567890"
 					]
-				}
+				},
+				"description": "### Delete Professor\n\nThis endpoint is used to delete a specific professor.\n\n#### Request\n\n- Method: DELETE\n    \n- URL: `http://localhost:3000/profesores/delete/1234567890`\n    \n- Body:\n    - cedula (number, required): The unique identification number of the professor to be deleted.\n        \n\n#### Response\n\nThe response for this request will be a JSON object following the schema below:\n\n``` json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"message\": {\n      \"type\": \"string\"\n    }\n  }\n}\n\n ```"
 			},
 			"response": [
 				{
@@ -593,7 +600,8 @@
 						"delete",
 						"12345"
 					]
-				}
+				},
+				"description": "### Delete Professor\n\nThis endpoint is used to delete a specific professor.\n\n#### Request\n\n- Method: DELETE\n    \n- Endpoint: `http://localhost:3000/profesores/delete/12345`\n    \n- Headers:\n    - Content-Type: application/json\n        \n- Body:\n    \n    ``` json\n    {\n        \"cedula\": 0\n    }\n    \n     ```\n    \n\n#### Response\n\nThe response for this request is a JSON object conforming to the following schema:\n\n``` json\n{\n    \"type\": \"object\",\n    \"properties\": {\n        \"message\": {\n            \"type\": \"string\"\n        }\n    }\n}\n\n ```"
 			},
 			"response": [
 				{
